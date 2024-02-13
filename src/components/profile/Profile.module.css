@@ -1,0 +1,75 @@
+.card { 
+    margin-top:20px;    
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 16px;   
+    background-color: whitesmoke;
+    border: 2px solid black;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;   
+    align-items: center;
+    font-family: sans-serif;
+    width: 400px;
+    overflow: hidden;     
+}
+
+.userCardContent {
+    display: flex;
+    flex-direction: column;    
+    align-items: center;
+    font-size: 26px;
+    font-weight: 400;
+    color: grey;
+    
+}
+
+.userImg {
+    display: flex;
+    width: 150px;    
+    border-radius: 50%;
+    background-color: rgb(47, 47, 55);
+}
+
+.userName {
+    margin-top: 16px;
+    font-size: 34px;
+    font-weight: 700;
+    color: black;
+}
+
+.userTag {
+    margin-top: 16px;      
+
+}
+
+.userStatsList {
+    width: 400px;    
+    margin-top: 16px;
+    background-color: lightgray;
+    display: flex;
+    justify-content: space-between;
+    
+
+}
+
+.userStatsItem {
+    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;    
+    border: 1px solid grey;  
+    
+
+}
+
+.userStatsTitle {
+    font-size: 24px;
+    font-weight: 500;
+
+}
+.userStatsAmount {
+    font-size: 22px;
+    font-weight: 700;
+
+}
