@@ -1,7 +1,7 @@
 //імпорт CSS
 import "./Options.css";
 
-const Options = ({ updateFeedback, resetFeedback, hasFeedback, totalFeedback }) => {
+const Options = ({ updateFeedback, resetFeedback, totalFeedback }) => {
 
   return (        
   <ul className={'optionsList'}>
