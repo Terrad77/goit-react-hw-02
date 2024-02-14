@@ -9,14 +9,14 @@ import Notification from './notification/Notification';
 
 const App = () => {
 
-//стан типів відгуків за замовченням
+//стан відгуків за замовченням
 const initialState = { good: 0, neutral: 0, bad: 0 };  
   
   // Стан зберігання типів відгуків
-  const [feedback, setFeedback] = useState({ good: 0, neutral: 0, bad: 0 });
+  const [feedback, setFeedback] = useState(initialState);
+
   //Cтан що визначає наявність відгуків
   const [hasFeedback, setHasFeedback] = useState(false);
-
 
   // Зчитування даних з локального сховища при завантаженні сторінки
   useEffect(() => {    
@@ -48,24 +48,20 @@ const initialState = { good: 0, neutral: 0, bad: 0 };
   
     const resetFeedback = () => {
     setFeedback(initialState);
-    setHasFeedback(false);
+    // setHasFeedback(false);
   };
-
-  console.log(hasFeedback);
-
   
 
   return (
     <div className='container'>      
       <h1>Sip Happens Café</h1>
       <p>Please leave your feedback about our service by selecting one of the options below.</p>      
-      <Options updateFeedback={updateFeedback} resetFeedback={resetFeedback} hasFeedback={hasFeedback} />
-      {/* умовний рендер компонентів */}
-      {hasFeedback? < Feedback type="Good" count={feedback.good} />: <Notification/> }     
-      {hasFeedback && <Feedback type="Neutral" count={feedback.neutral} />}
-      {hasFeedback && <Feedback type="Bad" count={feedback.bad} />}
-      {hasFeedback && <Feedback type="Total" count={totalFeedback} />}
-      {hasFeedback && <Feedback type="Positive" count={percentagePositiveFeedback} />}
+      <Options updateFeedback={updateFeedback} resetFeedback={resetFeedback} totalFeedback={totalFeedback } />      
+      {totalFeedback? < Feedback type="Good" count={feedback.good} />: <Notification/> }     
+      {totalFeedback !==0 && <Feedback type="Neutral" count={feedback.neutral} />}
+      {totalFeedback !==0 && <Feedback type="Bad" count={feedback.bad} />}
+      {totalFeedback !==0 && <Feedback type="Total" count={totalFeedback} />}
+      {totalFeedback !==0 && <Feedback type="Positive" count={percentagePositiveFeedback} />}
     </div>     
       
   );
