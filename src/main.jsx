@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client'
 // Імпорт стилів нормалізації
 import "modern-normalize";
 import './index.css'
-import App from './components/App'
+import App from './components/App';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
