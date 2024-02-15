@@ -10,7 +10,7 @@ const Options = ({ updateFeedback, resetFeedback, totalFeedback }) => {
     <button className={'optionsBtn'} onClick={() => updateFeedback('bad')}>Bad</button>
     {totalFeedback !== 0 && (<button className={'optionsBtn'} onClick={resetFeedback}>Reset</button>)}      
   </ul>  
-)
+  )
 };
 
 export default Options;

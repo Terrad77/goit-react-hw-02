@@ -1,29 +1,24 @@
-
 import './App.css'
 import { useState, useEffect } from 'react';
-
 import Options from '../Options/Options';
 import Feedback from '../Feedback/Feedback';
 import Notification from '../Notification/Notification';
 
-
-
 const App = () => {
-
 //object стану відгуків за замовченням
 const initialState = { good: 0, neutral: 0, bad: 0 };  
   
-  // Стан зберігання типів відгуків
-  const [feedback, setFeedback] = useState(initialState);
-
-  // Зчитування даних з локального сховища при завантаженні сторінки
-  useEffect(() => {    
-    const storedFeedback = JSON.parse(localStorage.getItem('feedback'));
-
-    if (storedFeedback) {
-      setFeedback(storedFeedback);      
+  //функція читання з локального сховища та зміни початкового значення useState стану 
+  const [feedback, setFeedback] = useState(() => {
+    // Зчитуємо значення за ключем
+      const storedFeedback = window.localStorage.getItem('feedback');
+    // Якщо є відгуки, парсимо і повертаємо це значення як початкове значення стану
+    if (storedFeedback  !== null) {
+      return JSON.parse(storedFeedback);      
     }
-  }, []);
+    //повертаємо значення за замовчуванням
+    return initialState;
+  });
 
 
   // Збереження даних у локальному сховищі при зміні стану
@@ -37,7 +32,7 @@ const initialState = { good: 0, neutral: 0, bad: 0 };
     setFeedback((prevFeedback) => ({...prevFeedback, [feedbackType]: prevFeedback[feedbackType] + 1,}));        
   };
 
-    // Загальна кількість відгуків (піднімання стану)
+    // Загальна кількість відгуків
   const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
 
     // Підрахунок відсотка позитивних відгуків
@@ -54,7 +49,7 @@ const initialState = { good: 0, neutral: 0, bad: 0 };
       <p>Please leave your feedback about our service by selecting one of the options below.</p>      
       <Options updateFeedback={updateFeedback} resetFeedback={resetFeedback} totalFeedback={totalFeedback } />      
       {totalFeedback? (<Feedback feedback={feedback} totalFeedback={totalFeedback} positiveFeedback={positiveFeedback} />) : (<Notification />) } 
-    </div>     
+    </div>    
       
   );
 };
