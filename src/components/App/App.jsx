@@ -4,27 +4,26 @@ import Options from '../Options/Options';
 import Feedback from '../Feedback/Feedback';
 import Notification from '../Notification/Notification';
 
-const App = () => {
 //object стану відгуків за замовченням
-const initialState = { good: 0, neutral: 0, bad: 0 };  
+const initialState = { good: 0, neutral: 0, bad: 0 };
+
+//ф-ція що зчитує значення localStorage за ключем
+const getInitialFeedback = () => {
+  const storedFeedback = window.localStorage.getItem('feedback');
+  return storedFeedback !== null ? JSON.parse(storedFeedback) : initialState;
+}
+
+
+const App = () => {
   
-  //функція читання з локального сховища та зміни початкового значення useState стану 
-  const [feedback, setFeedback] = useState(() => {
-    // Зчитуємо значення за ключем
-      const storedFeedback = window.localStorage.getItem('feedback');
-    // Якщо є відгуки, парсимо і повертаємо це значення як початкове значення стану
-    if (storedFeedback  !== null) {
-      return JSON.parse(storedFeedback);      
-    }
-    //повертаємо значення за замовчуванням
-    return initialState;
-  });
-
-
-  // Збереження даних у локальному сховищі при зміні стану
+  // зміна початкового значення стану 
+  const [feedback, setFeedback] = useState(getInitialFeedback)
+  
+  // async ф-ція збереження даних у локальному сховищі
   useEffect(() => {   
     localStorage.setItem('feedback', JSON.stringify(feedback));
-  }, [feedback]);
+  }, [feedback]
+  );
 
 
   //ф-ція зміни стану відгуків
