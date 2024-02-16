@@ -1,8 +1,9 @@
-import './App.css'
+import css from './App.module.css'
 import { useState, useEffect } from 'react';
 import Options from '../Options/Options';
 import Feedback from '../Feedback/Feedback';
 import Notification from '../Notification/Notification';
+import Description from '../Description/Description';
 
 //object стану відгуків за замовченням
 const initialState = { good: 0, neutral: 0, bad: 0 };
@@ -43,9 +44,8 @@ const App = () => {
   };  
 
   return (
-    <div className='container'>      
-      <h1>Sip Happens Café</h1>
-      <p>Please leave your feedback about our service by selecting one of the options below.</p>      
+    <div className={css.container}>      
+      <Description />     
       <Options updateFeedback={updateFeedback} resetFeedback={resetFeedback} totalFeedback={totalFeedback } />      
       {totalFeedback? (<Feedback feedback={feedback} totalFeedback={totalFeedback} positiveFeedback={positiveFeedback} />) : (<Notification />) } 
     </div>    

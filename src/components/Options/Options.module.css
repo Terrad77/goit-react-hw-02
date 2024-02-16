@@ -9,6 +9,8 @@
     color: black;
     transition-duration: 0.2s;
     box-shadow: 0 7px #999;
+    padding: 8px 10px;
+    width: 150px;
 }
 .optionsBtn:hover {
     background-color: grey;    
