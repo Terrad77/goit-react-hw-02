@@ -1,4 +1,4 @@
-import css from './App.module.css'
+import css from './App.module.css';
 import { useState, useEffect } from 'react';
 import Options from '../Options/Options';
 import Feedback from '../Feedback/Feedback';
@@ -12,44 +12,53 @@ const initialState = { good: 0, neutral: 0, bad: 0 };
 const getInitialFeedback = () => {
   const storedFeedback = window.localStorage.getItem('feedback');
   return storedFeedback !== null ? JSON.parse(storedFeedback) : initialState;
-}
+};
 
+//значення теккстових компонентів для можливості подальшого перевикористання
+const heading = 'Sip Happens Café';
+const paragraph =
+  'Please leave your feedback on our service by selecting one of the options below.';
+const noFeedback = 'No feedback yet';
 
 const App = () => {
-  
-  // зміна початкового значення стану 
-  const [feedback, setFeedback] = useState(getInitialFeedback)
-  
-  // async ф-ція збереження даних у локальному сховищі
-  useEffect(() => {   
-    localStorage.setItem('feedback', JSON.stringify(feedback));
-  }, [feedback]
-  );
+  // зміна значення початкового стану
+  const [feedback, setFeedback] = useState(getInitialFeedback);
 
+  // хук ф-ція збереження даних у localStorage
+  useEffect(() => {
+    localStorage.setItem('feedback', JSON.stringify(feedback));
+  }, [feedback]);
 
   //ф-ція зміни стану відгуків
-  const updateFeedback = (feedbackType) => {    
-    setFeedback((prevFeedback) => ({...prevFeedback, [feedbackType]: prevFeedback[feedbackType] + 1,}));        
+  const updateFeedback = feedbackType => {
+    setFeedback(prevFeedback => ({
+      ...prevFeedback,
+      [feedbackType]: prevFeedback[feedbackType] + 1,
+    }));
   };
 
-    // Загальна кількість відгуків
-  const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+  // Загальна кількість відгуків
+  const caclTotalFeedback = feedback.good + feedback.neutral + feedback.bad;
 
-    // Підрахунок відсотка позитивних відгуків
-  const positiveFeedback = Math.round(((feedback.good + feedback.neutral) / totalFeedback) * 100) + "%";
-  
-   // Функція скидання відгуків
-    const resetFeedback = () => {
-    setFeedback(initialState);    
-  };  
+  // Функція скидання відгуків
+  const resetFeedback = () => {
+    setFeedback(initialState);
+  };
 
   return (
-    <div className={css.container}>      
-      <Description />     
-      <Options updateFeedback={updateFeedback} resetFeedback={resetFeedback} totalFeedback={totalFeedback } />      
-      {totalFeedback? (<Feedback feedback={feedback} totalFeedback={totalFeedback} positiveFeedback={positiveFeedback} />) : (<Notification />) } 
-    </div>    
-      
+    <div className={css.container}>
+      <Description heading={heading} paragraph={paragraph} />
+      <Options
+        updateFeedback={updateFeedback}
+        resetFeedback={resetFeedback}
+        totalFeedback={caclTotalFeedback}
+      />
+      {caclTotalFeedback !== 0 ? (
+        <Feedback feedback={feedback} totalFeedback={caclTotalFeedback} />
+      ) : (
+        <Notification notification={noFeedback} />
+      )}
+    </div>
   );
 };
 
